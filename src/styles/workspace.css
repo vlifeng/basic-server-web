@@ -168,3 +168,27 @@ button.tiny.ghost:hover {
   .ws-body { grid-template-columns: 1fr; }
   .ws-members { width: auto; border-left: none; border-top: 1px solid var(--border); }
 }
+
+.tree-row.dragging { opacity: 0.5; }
+.tree-edit {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+}
+.tree-edit-key, .tree-edit-value {
+  margin: 0;
+  padding: 4px 8px;
+  font-size: 0.85rem;
+  min-width: 0;
+}
+.tree-edit-key { width: 88px; }
+.tree-edit-value { flex: 1; }
+.tree-val {
+  font-size: 0.8rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 140px;
+}
