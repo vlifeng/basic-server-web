@@ -1,0 +1,57 @@
+name: Deploy GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Build
+        env:
+          VITE_BASE: /basic-server-web/
+        run: |
+          set -euo pipefail
+          API_BASE="${{ vars.VITE_API_BASE }}"
+          if [ -z "$API_BASE" ]; then
+            API_BASE="https://subscription-cats-panels-tremendous.trycloudflare.com"
+          fi
+          echo "Using VITE_API_BASE=$API_BASE"
+          export VITE_API_BASE="$API_BASE"
+          npm run build
+
+      - name: Deploy to gh-pages
+        working-directory: dist
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          git init
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # Required for project Pages under /basic-server-web/
+          touch .nojekyll
+          git add -A
+          git commit -m "Deploy web frontend to GitHub Pages"
+          git push -f "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:gh-pages
