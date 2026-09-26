@@ -23,10 +23,9 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20"
-          cache: npm
 
       - name: Install
-        run: npm ci
+        run: npm install
 
       - name: Build
         env:
@@ -50,7 +49,6 @@ jobs:
           git init
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          # Required for project Pages under /basic-server-web/
           touch .nojekyll
           git add -A
           git commit -m "Deploy web frontend to GitHub Pages"
