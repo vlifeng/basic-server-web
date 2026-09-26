@@ -11,8 +11,9 @@ Live site: **https://vlifeng.github.io/basic-server-web/**
 
 ## Features
 
-- Register → always navigates to `/verify` (email code UX)
-- Login, verify email, profile (`/me`), logout
+- Register → navigates to `/verify` (email verification code)
+- Login → navigates to `/verify-login` (login 2FA email code)
+- Profile (`/me`), logout
 - Shared Zod schemas vendored under `src/shared` (no private backend code)
 
 ## Configure API base
@@ -61,3 +62,10 @@ If the site 404s after the first deploy, enable Pages once:
 ## Privacy
 
 Only the SPA and Zod request/response schemas live here. The NestJS API, Redis session store, SMTP credentials, and JWT signing keys stay in the private backend repository.
+
+
+## Login email 2FA
+
+1. `POST /api/auth/login` → `{ requiresEmailVerification: true, email, message }` (no JWT yet)
+2. User enters 6-digit code on `/verify-login`
+3. `POST /api/auth/verify-login` → `{ accessToken, user }`

@@ -22,8 +22,20 @@ export function LoginPage() {
     setLoading(true);
     try {
       const res = await api.login(parsed.data);
-      setToken(res.accessToken);
-      nav('/me');
+      if ('requiresEmailVerification' in res && res.requiresEmailVerification) {
+        sessionStorage.setItem('pendingLoginEmail', res.email);
+        if (res.devCode) {
+          sessionStorage.setItem('pendingLoginDevCode', res.devCode);
+        } else {
+          sessionStorage.removeItem('pendingLoginDevCode');
+        }
+        nav('/verify-login');
+        return;
+      }
+      if ('accessToken' in res && res.accessToken) {
+        setToken(res.accessToken);
+        nav('/me');
+      }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Login failed');
     } finally {
@@ -35,7 +47,9 @@ export function LoginPage() {
     <div className="shell">
       <div className="card">
         <h1>Sign in</h1>
-        <p className="sub">Use your email and password to continue.</p>
+        <p className="sub">
+          输入邮箱和密码后，将向邮箱发送登录验证码。
+        </p>
         {error && <div className="error">{error}</div>}
         <form onSubmit={onSubmit}>
           <label htmlFor="email">Email</label>
