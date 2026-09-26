@@ -63,6 +63,7 @@ export const MessageResponseSchema = z.object({
 });
 export type MessageResponse = z.infer<typeof MessageResponseSchema>;
 
+
 export type Workspace = {
   id: string;
   name: string;
@@ -92,4 +93,18 @@ export type UiNode = {
   type: UiNodeType;
   props?: Record<string, string | number | boolean>;
   children?: UiNode[];
+};
+
+export type WorkspaceNode = {
+  id: string;
+  workspaceId: string;
+  parentId: string | null;
+  key: string;
+  value?: unknown;
+  attrs?: Record<string, unknown>;
+  interpreterId?: string | null;
+  sortOrder?: number;
+  createdAt: string;
+  updatedAt?: string;
+  children?: WorkspaceNode[];
 };

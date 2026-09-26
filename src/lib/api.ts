@@ -5,6 +5,7 @@ import type {
   MessageResponse,
   Workspace,
   WorkspaceMember,
+  WorkspaceNode,
 } from '../shared';
 
 const TOKEN_KEY = 'accessToken';
@@ -90,5 +91,54 @@ export const api = {
   listMembers: (workspaceId: string) =>
     request<{ items: WorkspaceMember[] }>(
       `/api/workspaces/${workspaceId}/members`,
+    ),
+  listNodes: (
+    workspaceId: string,
+    opts?: { parentId?: string; view?: 'flat' | 'tree' },
+  ) => {
+    const q = new URLSearchParams();
+    if (opts?.parentId) q.set('parentId', opts.parentId);
+    if (opts?.view) q.set('view', opts.view);
+    const qs = q.toString();
+    return request<{ items: WorkspaceNode[] }>(
+      `/api/workspaces/${workspaceId}/nodes${qs ? `?${qs}` : ''}`,
+    );
+  },
+  createNode: (
+    workspaceId: string,
+    body: {
+      key: string;
+      parentId?: string | null;
+      interpreterId?: string | null;
+      value?: unknown;
+      sortOrder?: number;
+    },
+  ) =>
+    request<WorkspaceNode>(`/api/workspaces/${workspaceId}/nodes`, {
+      method: 'POST',
+      body: JSON.stringify(body),
+    }),
+  updateNode: (
+    workspaceId: string,
+    nodeId: string,
+    body: Record<string, unknown>,
+  ) =>
+    request<WorkspaceNode>(
+      `/api/workspaces/${workspaceId}/nodes/${nodeId}`,
+      { method: 'PATCH', body: JSON.stringify(body) },
+    ),
+  deleteNode: (workspaceId: string, nodeId: string, cascade = true) =>
+    request<void>(
+      `/api/workspaces/${workspaceId}/nodes/${nodeId}?cascade=${cascade}`,
+      { method: 'DELETE' },
+    ),
+  moveNode: (
+    workspaceId: string,
+    nodeId: string,
+    body: { parentId: string | null; sortOrder?: number; beforeNodeId?: string },
+  ) =>
+    request<WorkspaceNode>(
+      `/api/workspaces/${workspaceId}/nodes/${nodeId}/move`,
+      { method: 'POST', body: JSON.stringify(body) },
     ),
 };
