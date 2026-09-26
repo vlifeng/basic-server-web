@@ -66,6 +66,9 @@ export function MePage() {
             <dd>{String(user.createdAt)}</dd>
           </dl>
         )}
+        <div className="footer" style={{ marginTop: 16 }}>
+          <Link to="/workspace">打开 Workspace</Link>
+        </div>
         {!user?.emailVerified && (
           <div className="footer" style={{ marginTop: 16 }}>
             <Link to="/verify">Verify email</Link>

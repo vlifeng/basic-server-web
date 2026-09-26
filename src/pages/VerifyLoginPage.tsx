@@ -32,7 +32,7 @@ export function VerifyLoginPage() {
       sessionStorage.removeItem('pendingLoginEmail');
       sessionStorage.removeItem('pendingLoginDevCode');
       setOk('登录成功');
-      setTimeout(() => nav('/me'), 400);
+      setTimeout(() => nav('/workspace'), 400);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Verify failed');
     } finally {

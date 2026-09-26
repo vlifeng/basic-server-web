@@ -34,7 +34,7 @@ export function LoginPage() {
       }
       if ('accessToken' in res && res.accessToken) {
         setToken(res.accessToken);
-        nav('/me');
+        nav('/workspace');
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Login failed');
