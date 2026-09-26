@@ -19,6 +19,12 @@ export const VerifyEmailSchema = z.object({
 });
 export type VerifyEmailDto = z.infer<typeof VerifyEmailSchema>;
 
+export const VerifyLoginSchema = z.object({
+  email: z.string().email('Invalid email'),
+  code: z.string().length(6, 'Code must be 6 digits'),
+});
+export type VerifyLoginDto = z.infer<typeof VerifyLoginSchema>;
+
 export const UserPublicSchema = z.object({
   id: z.string().uuid(),
   email: z.string().email(),
@@ -35,6 +41,16 @@ export const AuthResponseSchema = z.object({
   devCode: z.string().optional(),
 });
 export type AuthResponse = z.infer<typeof AuthResponseSchema>;
+
+export const LoginChallengeResponseSchema = z.object({
+  requiresEmailVerification: z.literal(true),
+  email: z.string().email(),
+  message: z.string(),
+  devCode: z.string().optional(),
+});
+export type LoginChallengeResponse = z.infer<
+  typeof LoginChallengeResponseSchema
+>;
 
 export const MeResponseSchema = z.object({
   user: UserPublicSchema,

@@ -1,5 +1,6 @@
 import type {
   AuthResponse,
+  LoginChallengeResponse,
   MeResponse,
   MessageResponse,
 } from '../shared';
@@ -55,7 +56,12 @@ export const api = {
       body: JSON.stringify(body),
     }),
   login: (body: unknown) =>
-    request<AuthResponse>('/api/auth/login', {
+    request<LoginChallengeResponse | AuthResponse>('/api/auth/login', {
+      method: 'POST',
+      body: JSON.stringify(body),
+    }),
+  verifyLogin: (body: unknown) =>
+    request<AuthResponse>('/api/auth/verify-login', {
       method: 'POST',
       body: JSON.stringify(body),
     }),
