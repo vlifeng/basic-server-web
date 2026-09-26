@@ -4,16 +4,18 @@ import { MePage } from './pages/MePage';
 import { RegisterPage } from './pages/RegisterPage';
 import { VerifyPage } from './pages/VerifyPage';
 import { VerifyLoginPage } from './pages/VerifyLoginPage';
+import { WorkspacePage } from './pages/WorkspacePage';
 
 export default function App() {
   return (
     <Routes>
-      <Route path="/" element={<Navigate to="/login" replace />} />
+      <Route path="/" element={<Navigate to="/workspace" replace />} />
       <Route path="/register" element={<RegisterPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/verify" element={<VerifyPage />} />
       <Route path="/verify-login" element={<VerifyLoginPage />} />
       <Route path="/me" element={<MePage />} />
+      <Route path="/workspace" element={<WorkspacePage />} />
     </Routes>
   );
 }

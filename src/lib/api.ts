@@ -3,6 +3,8 @@ import type {
   LoginChallengeResponse,
   MeResponse,
   MessageResponse,
+  Workspace,
+  WorkspaceMember,
 } from '../shared';
 
 const TOKEN_KEY = 'accessToken';
@@ -38,6 +40,9 @@ async function request<T>(
 
   const url = `${API_BASE}${path}`;
   const res = await fetch(url, { ...options, headers });
+  if (res.status === 204) {
+    return undefined as T;
+  }
   const data = await res.json().catch(() => ({}));
   if (!res.ok) {
     const msg =
@@ -73,4 +78,17 @@ export const api = {
   me: () => request<MeResponse>('/api/auth/me'),
   logout: () =>
     request<MessageResponse>('/api/auth/logout', { method: 'POST' }),
+  listWorkspaces: () =>
+    request<{ items: Workspace[] }>('/api/workspaces'),
+  createWorkspace: (body: { name: string }) =>
+    request<Workspace>('/api/workspaces', {
+      method: 'POST',
+      body: JSON.stringify(body),
+    }),
+  getWorkspace: (id: string) =>
+    request<Workspace>(`/api/workspaces/${id}`),
+  listMembers: (workspaceId: string) =>
+    request<{ items: WorkspaceMember[] }>(
+      `/api/workspaces/${workspaceId}/members`,
+    ),
 };

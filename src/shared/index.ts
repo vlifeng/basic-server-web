@@ -62,3 +62,34 @@ export const MessageResponseSchema = z.object({
   user: UserPublicSchema.optional(),
 });
 export type MessageResponse = z.infer<typeof MessageResponseSchema>;
+
+export type Workspace = {
+  id: string;
+  name: string;
+  ownerId: string;
+  createdAt: string;
+  updatedAt?: string;
+};
+
+export type WorkspaceMember = {
+  userId: string;
+  displayName?: string;
+  role: 'owner' | 'editor' | 'viewer';
+  status: 'active' | 'invited' | 'revoked';
+  invitedAt?: string;
+};
+
+export type UiNodeType =
+  | 'stack'
+  | 'card'
+  | 'text'
+  | 'list'
+  | 'listItem'
+  | 'nav'
+  | 'navItem';
+
+export type UiNode = {
+  type: UiNodeType;
+  props?: Record<string, string | number | boolean>;
+  children?: UiNode[];
+};
