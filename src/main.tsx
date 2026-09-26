@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import './styles/app.css';
+import './styles/workspace.css';
 
 const basename = import.meta.env.BASE_URL?.replace(/\/$/, '') || '';
 

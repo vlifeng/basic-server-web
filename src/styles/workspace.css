@@ -1,0 +1,170 @@
+/* —— Workspace shell —— */
+.ws-loading {
+  max-width: 420px;
+  margin: 8vh auto;
+  padding: 0 16px;
+}
+.ws-app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.ws-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border);
+  background: color-mix(in srgb, var(--panel) 88%, transparent);
+  backdrop-filter: blur(8px);
+  flex-wrap: wrap;
+}
+.ws-brand {
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+.ws-workspace {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 200px;
+}
+.ws-workspace select {
+  background: #0f1522;
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 10px;
+}
+.ws-create {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+.ws-create input {
+  margin: 0;
+  width: 120px;
+  padding: 8px 10px;
+}
+button.tiny {
+  width: auto;
+  padding: 8px 12px;
+  font-size: 0.85rem;
+}
+button.tiny.ghost {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+button.tiny.ghost:hover {
+  border-color: var(--accent);
+  background: transparent;
+}
+.tiny-link {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+.yjs-pill {
+  font-size: 0.75rem;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  color: var(--muted);
+}
+.yjs-pill.synced { color: var(--ok); border-color: color-mix(in srgb, var(--ok) 40%, var(--border)); }
+.yjs-pill.offline { opacity: 0.85; }
+.ws-banner {
+  padding: 8px 16px;
+  font-size: 0.9rem;
+}
+.ws-banner.error { background: color-mix(in srgb, var(--danger) 18%, transparent); color: var(--danger); }
+.ws-body {
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(220px, 320px) 1fr auto;
+  min-height: 0;
+}
+.ws-left, .ws-right, .ws-members {
+  border-right: 1px solid var(--border);
+  padding: 12px;
+  overflow: auto;
+}
+.ws-right { border-right: none; }
+.ws-members {
+  width: 220px;
+  border-left: 1px solid var(--border);
+  border-right: none;
+}
+.pane-title {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+.pane-title .muted { text-transform: none; letter-spacing: 0; font-weight: 400; }
+.pane-hint { font-size: 0.75rem; color: var(--muted); margin-top: 16px; }
+.tree-row {
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  color: var(--text);
+  border: none;
+  border-radius: 8px;
+  padding: 8px 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+}
+.tree-row:hover { background: color-mix(in srgb, var(--accent) 12%, transparent); }
+.tree-row.active { background: color-mix(in srgb, var(--accent) 22%, transparent); }
+.tree-key { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.9rem; }
+.interp-chip {
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--accent) 35%, transparent);
+  color: #c7d2fe;
+}
+.preview-frame {
+  background: #0f1522;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  min-height: 320px;
+}
+.preview-empty { color: var(--muted); font-size: 0.95rem; }
+.ui-stack { display: flex; flex-direction: column; gap: 12px; }
+.ui-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px;
+}
+.ui-card-title { font-weight: 650; margin-bottom: 8px; }
+.ui-text { margin: 0; line-height: 1.5; }
+.ui-text.muted { color: var(--muted); }
+.ui-list { margin: 0; padding-left: 1.1rem; }
+.ui-list-item { margin: 4px 0; }
+.ui-nav { display: flex; gap: 8px; flex-wrap: wrap; }
+.ui-nav-item {
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  font-size: 0.85rem;
+}
+.ui-unknown { color: var(--danger); font-size: 0.85rem; }
+.muted { color: var(--muted); }
+.ws-members ul { list-style: none; padding: 0; margin: 0; }
+.ws-members li { padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 0.9rem; }
+
+@media (max-width: 800px) {
+  .ws-body { grid-template-columns: 1fr; }
+  .ws-members { width: auto; border-left: none; border-top: 1px solid var(--border); }
+}
